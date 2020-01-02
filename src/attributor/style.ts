@@ -11,6 +11,10 @@ function camelize(name: string): string {
   return parts[0] + rest;
 }
 
+function removeDoubleDoubleQuotes(value: string): string {
+  return value.replace(/""/g, '"');
+}
+
 class StyleAttributor extends Attributor {
   static keys(node: Element): string[] {
     return (node.getAttribute('style') || '').split(';').map(function(value) {
@@ -36,7 +40,7 @@ class StyleAttributor extends Attributor {
 
   value(node: HTMLElement): string {
     // @ts-ignore
-    let value = node.style[camelize(this.keyName)];
+    let value = removeDoubleDoubleQuotes(node.style[camelize(this.keyName)]);
     return this.canAdd(node, value) ? value : '';
   }
 }
