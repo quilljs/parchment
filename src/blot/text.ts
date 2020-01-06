@@ -67,7 +67,7 @@ class TextBlot extends LeafBlot implements Leaf {
   split(index: number, force: boolean = false): Blot {
     if (!force) {
       if (index === 0) return this;
-      if (index === this.length()) return this.next;
+      if (index >= this.length()) return this.next;
     }
     let after = Registry.create(this.domNode.splitText(index));
     this.parent.insertBefore(after, this.next);

@@ -57,8 +57,10 @@ describe('TextBlot', function() {
     container.appendChild(textBlot);
     let before = textBlot.split(0);
     let after = textBlot.split(4);
+    let invalid = textBlot.split(5);
     expect(before).toEqual(textBlot);
     expect(after).toBe(null);
+    expect(invalid).toBe(null);
   });
 
   it('split() force', function() {
