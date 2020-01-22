@@ -80,7 +80,7 @@ export function query(
     } else if (query & Scope.LEVEL & Scope.INLINE) {
       match = types['inline'];
     }
-  } else if (query instanceof HTMLElement) {
+  } else if (query instanceof HTMLElement || query instanceof Element) {
     let names = (query.getAttribute('class') || '').split(/\s+/);
     for (let i in names) {
       match = classes[names[i]];
