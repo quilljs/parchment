@@ -52,7 +52,7 @@ export function create(input: Node | string | Scope, value?: any): Blot {
   let BlotClass = <BlotConstructor>match;
   let node =
     // @ts-ignore
-    input instanceof Node || input['nodeType'] === Node.TEXT_NODE ? input : BlotClass.create(value);
+    isNode(input) || input['nodeType'] === Node.TEXT_NODE ? input : BlotClass.create(value);
   return new BlotClass(<Node>node, value);
 }
 
@@ -80,7 +80,7 @@ export function query(
     } else if (query & Scope.LEVEL & Scope.INLINE) {
       match = types['inline'];
     }
-  } else if (query instanceof HTMLElement) {
+  } else if (isHTMLElement(query)) {
     let names = (query.getAttribute('class') || '').split(/\s+/);
     for (let i in names) {
       match = classes[names[i]];
@@ -130,4 +130,32 @@ export function register(...Definitions: any[]): any {
     }
   }
   return Definition;
+}
+
+function isHTMLElement(value: any): value is HTMLElement {
+  if (value instanceof HTMLElement) {
+    return true;
+  }
+
+  if (value.ownerDocument) {
+    const elementWindow = value.ownerDocument.defaultView || value.ownerDocument.parentWindow;
+
+    return value instanceof elementWindow.HTMLElement;
+  }
+  
+  return false;
+}
+
+function isNode(value: any): value is Node {
+  if (value instanceof Node) {
+    return true;
+  }
+
+  if (value.ownerDocument) {
+    const elementWindow = value.ownerDocument.defaultView || value.ownerDocument.parentWindow;
+
+    return value instanceof elementWindow.Node;
+  }
+  
+  return false;
 }
