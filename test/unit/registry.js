@@ -15,6 +15,19 @@ describe('TestRegistry', function() {
       expect(blot.statics.blotName).toBe('bold');
     });
 
+    it('node in iframe', function() {
+      const testIFrame = setupTestContainer();
+      let node = document.createElement('strong');
+      testIFrame.contentDocument.body.appendChild(node);
+      let blot = TestRegistry.create(this.scroll, node);
+
+      expect(blot instanceof BoldBlot).toBe(true);
+      expect(blot.statics.blotName).toBe('bold');
+      expect(blot.domNode).toBe(node);
+
+      document.body.removeChild(testIFrame);
+    });
+
     it('block', function() {
       let blot = TestRegistry.create(this.scroll, Scope.BLOCK_BLOT);
       expect(blot instanceof BlockBlot).toBe(true);
@@ -101,6 +114,17 @@ describe('TestRegistry', function() {
       expect(TestRegistry.query(node)).toBe(AuthorBlot);
     });
 
+    it('class in iFrame', function() {
+      const testIFrame = setupTestContainer();
+      let node = document.createElement('em');
+      node.setAttribute('class', 'author-blot');
+      testIFrame.contentDocument.body.appendChild(node);
+
+      expect(TestRegistry.query(node)).toBe(AuthorBlot);
+
+      document.body.removeChild(testIFrame);
+    });
+
     it('type mismatch', function() {
       let match = TestRegistry.query('italic', Scope.ATTRIBUTE);
       expect(match).toBeFalsy();
@@ -137,3 +161,17 @@ describe('TestRegistry', function() {
     });
   });
 });
+
+function setupTestContainer() {
+  const testFrame = document.createElement('iframe');
+  testFrame.setAttribute('width', 800);
+  testFrame.setAttribute('height', 1000);
+  testFrame.setAttribute('frameborder', 0);
+  document.body.appendChild(testFrame);
+  testFrame.contentWindow.document.open();
+  testFrame.contentWindow.document.write(
+    `<!DOCTYPE html>\n<html><head></head><body></body></html>`,
+  );
+  testFrame.contentWindow.document.close();
+  return testFrame;
+}

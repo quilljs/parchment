@@ -41,7 +41,7 @@ export default class Registry implements RegistryInterface {
     const blotClass = match as BlotConstructor;
     const node =
       // @ts-ignore
-      input instanceof Node || input.nodeType === Node.TEXT_NODE
+      this.isNode(input) || input.nodeType === Node.TEXT_NODE
         ? input
         : blotClass.create(value);
 
@@ -70,7 +70,7 @@ export default class Registry implements RegistryInterface {
       } else if (query & Scope.LEVEL & Scope.INLINE) {
         match = this.types.inline;
       }
-    } else if (query instanceof HTMLElement) {
+    } else if (this.isHTMLElement(query)) {
       const names = (query.getAttribute('class') || '').split(/\s+/);
       names.some(name => {
         match = this.classes[name];
@@ -132,5 +132,25 @@ export default class Registry implements RegistryInterface {
       }
     }
     return definition;
+  }
+
+  private isHTMLElement(value: any): value is HTMLElement {
+    if (value.ownerDocument === undefined) {
+      return false;
+    }
+
+    const elementWindow = value.ownerDocument.defaultView || value.ownerDocument.parentWindow;
+    return value instanceof HTMLElement
+      || value instanceof elementWindow.HTMLElement;
+  }
+  
+  private isNode(value: any): value is Node {
+    if (value.ownerDocument === undefined) {
+      return false;
+    }
+
+    const elementWindow = value.ownerDocument.defaultView || value.ownerDocument.parentWindow;
+    return value instanceof Node
+      || value instanceof elementWindow.Node;
   }
 }
