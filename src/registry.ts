@@ -1,5 +1,5 @@
 import Attributor from './attributor/attributor';
-import { Blot, Formattable } from './blot/abstract/blot';
+import { Blot } from './blot/abstract/blot';
 
 export interface BlotConstructor {
   blotName: string;
