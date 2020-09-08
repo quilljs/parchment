@@ -221,7 +221,7 @@ class ParentBlot extends ShadowBlot implements Parent {
       refDomNode = refBlot.domNode;
     }
     if (
-      this.domNode.parentNode !== childBlot.domNode ||
+      this.domNode !== childBlot.domNode.parentNode ||
       this.domNode.nextSibling !== refDomNode
     ) {
       this.domNode.insertBefore(childBlot.domNode, refDomNode);
