@@ -10,6 +10,10 @@ function match(node: HTMLElement, prefix: string): string[] {
 class ClassAttributor extends Attributor {
   static keys(node: HTMLElement): string[] {
     return (node.getAttribute('class') || '').split(/\s+/).map(function(name) {
+      if (name.indexOf('ql-font') === 0) {
+          return 'ql-font';
+      }
+          
       return name
         .split('-')
         .slice(0, -1)
