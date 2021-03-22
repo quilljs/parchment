@@ -1,6 +1,6 @@
 {
-  "name": "parchment",
-  "version": "2.0.0-dev.2",
+  "name": "@creately/parchment",
+  "version": "1.0.1",
   "description": "A document model for rich text editors",
   "author": "Jason Chen <jhchen7@gmail.com>",
   "homepage": "http://quilljs.com/docs/parchment",

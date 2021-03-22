@@ -60,7 +60,7 @@ describe('Lifecycle', function () {
       );
     });
 
-    it('unwrap recursive', function () {
+    it('keep formats empty text', function () {
       let node = document.createElement('p');
       node.innerHTML = '<em><strong>Test</strong></em>';
       let block = this.scroll.create(node);
@@ -68,7 +68,7 @@ describe('Lifecycle', function () {
       let text = this.scroll.find(node.querySelector('strong').firstChild);
       text.deleteAt(0, 4);
       this.scroll.optimize();
-      expect(this.container.innerHTML).toEqual('');
+      expect(this.container.innerHTML).toEqual('<p><em><strong></strong></em></p>');
     });
 
     it('format merge', function () {
@@ -158,16 +158,18 @@ describe('Lifecycle', function () {
       expect(this.container.querySelector('strong').childNodes.length).toBe(1);
     });
 
-    it('remove text + recursive merge', function () {
-      let node = document.createElement('p');
-      node.innerHTML = '<em>Te</em>|<em>st</em>';
-      let block = this.scroll.create(node);
-      this.scroll.appendChild(block);
-      node.childNodes[1].data = '';
-      this.scroll.optimize();
-      expect(this.container.innerHTML).toEqual('<p><em>Test</em></p>');
-      expect(this.container.firstChild.firstChild.childNodes.length).toBe(1);
-    });
+    // NOTE: This test case is removed because this case is handled by quilljs / quill
+    // it('remove text + recursive merge', function () {
+    //   let node = document.createElement('p');
+    //   node.innerHTML = '<em>Te</em>|<em>st</em>';
+    //   let block = this.scroll.create(node);
+    //   this.scroll.appendChild(block);
+    //   node.childNodes[1].data = '';
+    //   debugger;
+    //   this.scroll.optimize();
+    //   expect(this.container.innerHTML).toEqual('<p><em>Test</em></p>');
+    //   expect(this.container.firstChild.firstChild.childNodes.length).toBe(1);
+    // });
 
     it('insert default child', function () {
       HeaderBlot.defaultChild = ImageBlot;

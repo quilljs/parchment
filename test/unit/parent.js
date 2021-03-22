@@ -25,7 +25,7 @@ describe('Parent', function () {
     });
 
     it('range', function () {
-      expect(this.blot.descendants(TextBlot, 1, 3).length).toEqual(2);
+      expect(this.blot.descendants(TextBlot, 1, 3).length).toEqual(3);
     });
 
     it('function match', function () {
@@ -37,7 +37,7 @@ describe('Parent', function () {
           1,
           3,
         ).length,
-      ).toEqual(2);
+      ).toEqual(3);
     });
   });
 

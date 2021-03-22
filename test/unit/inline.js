@@ -45,12 +45,12 @@ describe('InlineBlot', function () {
     expect(italicBlot.domNode.outerHTML).toEqual(original);
   });
 
-  it('delete + unwrap', function () {
+  it('delete', function () {
     let node = document.createElement('p');
     node.innerHTML = '<em><strong>Test</strong></em>!';
     let container = this.scroll.create(node);
     container.deleteAt(0, 4);
-    expect(container.children.head.value()).toEqual('!');
+    expect(container.children.head instanceof TextBlot).toEqual(true);
   });
 
   it('formats()', function () {

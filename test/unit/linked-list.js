@@ -211,8 +211,8 @@ describe('LinkedList', function () {
     it('forEachAt', function () {
       this.list.append(this.a, this.b, this.c);
       this.list.forEachAt(3, 3, this.spy.callback);
-      expect(this.spy.callback.calls.count()).toBe(1);
-      expect(this.spy.callback.calls.first().args).toEqual([this.b, 0, 3]);
+      expect(this.spy.callback.calls.count()).toBe(2);
+      expect(this.spy.callback.calls.first().args).toEqual([this.a, 3, 0]);
     });
 
     it('forEachAt zero length nodes', function () {

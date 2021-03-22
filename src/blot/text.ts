@@ -50,9 +50,11 @@ class TextBlot extends LeafBlot implements Leaf {
   public optimize(context: { [key: string]: any }): void {
     super.optimize(context);
     this.text = this.statics.value(this.domNode);
-    if (this.text.length === 0) {
-      this.remove();
-    } else if (this.next instanceof TextBlot && this.next.prev === this) {
+    if (
+      this.text.length !== 0 &&
+      this.next instanceof TextBlot &&
+      this.next.prev === this
+    ) {
       this.insertAt(this.length(), (this.next as TextBlot).value());
       this.next.remove();
     }

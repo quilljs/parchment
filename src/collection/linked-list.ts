@@ -160,7 +160,7 @@ class LinkedList<T extends LinkedNode> {
     if (length <= 0) {
       return;
     }
-    const [startNode, offset] = this.find(index);
+    const [startNode, offset] = this.find(index, true);
     let curIndex = index - offset;
     const next = this.iterator(startNode);
     let cur = next();

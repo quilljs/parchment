@@ -93,7 +93,7 @@ class Blot {
 
   // Useful search functions for descendant(s), should not modify
   descendant(type: BlotClass, index: number, inclusive): Blot
-  descendents(type: BlotClass, index: number, length: number): Blot[];
+  descendants(type: BlotClass, index: number, length: number): Blot[];
 
 
   /** Formattable blots only **/
