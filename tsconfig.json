@@ -2,10 +2,15 @@
   "compilerOptions": {
     "module": "es6",
     "target": "es6",
-    "declaration": false,
+    "declaration": true,
+    "outDir": "dist",
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true
   },
-  "exclude": ["node_modules", "test"]
+  "exclude": [
+    "node_modules",
+    "test",
+    "dist"
+  ]
 }
