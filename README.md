@@ -148,7 +148,7 @@ class LinkBlot extends InlineBlot {
 register(LinkBlot);
 ```
 
-Quill also provides many great example implementations in its [source code](https://github.com/quilljs/quill/tree/develop/formats).
+Quill also provides many great example implementations in its [source code](https://github.com/quilljs/quill/tree/develop/packages/quill/src/formats).
 
 ### Block Blot
 
